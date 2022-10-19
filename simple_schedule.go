@@ -22,70 +22,38 @@ type SimpleScheduleFactory interface {
 type simpleSchedule struct{}
 
 func (ss *simpleSchedule) RepeatSecondlyForever(interval int) (*SimpleSchedule, error) {
-	if interval <= 0 {
-		return nil, errors.New(ErrorMsgInvalidIntervalGreaterThanZero)
-	}
-	return &SimpleSchedule{
-		interval:    time.Duration(interval) * time.Second,
-		repeatCount: RepeatIndefinitely,
-	}, nil
+	return makeSimpleSchedule(interval, RepeatIndefinitely, true, time.Second)
 }
 
 func (ss *simpleSchedule) RepeatMinutelyForever(interval int) (*SimpleSchedule, error) {
-	if interval <= 0 {
-		return nil, errors.New(ErrorMsgInvalidIntervalGreaterThanZero)
-	}
-	return &SimpleSchedule{
-		interval:    time.Duration(interval) * time.Minute,
-		repeatCount: RepeatIndefinitely,
-	}, nil
+	return makeSimpleSchedule(interval, RepeatIndefinitely, true, time.Minute)
 }
 
 func (ss *simpleSchedule) RepeatHourlyForever(interval int) (*SimpleSchedule, error) {
-	if interval <= 0 {
-		return nil, errors.New(ErrorMsgInvalidIntervalGreaterThanZero)
-	}
-	return &SimpleSchedule{
-		interval:    time.Duration(interval) * time.Hour,
-		repeatCount: RepeatIndefinitely,
-	}, nil
+	return makeSimpleSchedule(interval, RepeatIndefinitely, true, time.Hour)
 }
 
 func (ss *simpleSchedule) RepeatSecondlyForTotalCount(interval int, count int) (*SimpleSchedule, error) {
-	if interval <= 0 {
-		return nil, errors.New(ErrorMsgInvalidIntervalGreaterThanZero)
-	}
-	if count <= 0 {
-		return nil, errors.New(ErrorMsgInvalidCountGreaterThanZero)
-	}
-	return &SimpleSchedule{
-		interval:    time.Duration(interval) * time.Second,
-		repeatCount: count,
-	}, nil
+	return makeSimpleSchedule(interval, count, false, time.Second)
 }
 
 func (ss *simpleSchedule) RepeatMinutelyForTotalCount(interval int, count int) (*SimpleSchedule, error) {
-	if interval <= 0 {
-		return nil, errors.New(ErrorMsgInvalidIntervalGreaterThanZero)
-	}
-	if count <= 0 {
-		return nil, errors.New(ErrorMsgInvalidCountGreaterThanZero)
-	}
-	return &SimpleSchedule{
-		interval:    time.Duration(interval) * time.Minute,
-		repeatCount: count,
-	}, nil
+	return makeSimpleSchedule(interval, count, false, time.Minute)
 }
 
 func (ss *simpleSchedule) RepeatHourlyForTotalCount(interval int, count int) (*SimpleSchedule, error) {
+	return makeSimpleSchedule(interval, count, false, time.Hour)
+}
+
+func makeSimpleSchedule(interval int, count int, isForever bool, unit time.Duration) (*SimpleSchedule, error) {
 	if interval <= 0 {
 		return nil, errors.New(ErrorMsgInvalidIntervalGreaterThanZero)
 	}
-	if count <= 0 {
+	if !isForever && count <= 0 {
 		return nil, errors.New(ErrorMsgInvalidCountGreaterThanZero)
 	}
 	return &SimpleSchedule{
-		interval:    time.Duration(interval) * time.Hour,
+		interval:    time.Duration(interval) * unit,
 		repeatCount: count,
 	}, nil
 }
