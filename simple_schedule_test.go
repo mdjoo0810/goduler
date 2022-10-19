@@ -33,7 +33,7 @@ func TestSimpleSchedule_RepeatSecondlyForever(t *testing.T) {
 	for _, tc := range cases {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
-			s, err := NewSimpleScheduleBuilder().RepeatSecondlyForever(tc.given).Build()
+			s, err := NewSimpleScheduleFactory().RepeatSecondlyForever(tc.given)
 			if tc.expectError != nil {
 				assert.EqualError(t, err, tc.expectError.Error())
 			} else {
@@ -69,7 +69,7 @@ func TestSimpleSchedule_RepeatMinutelyForever(t *testing.T) {
 	for _, tc := range cases {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
-			s, err := NewSimpleScheduleBuilder().RepeatMinutelyForever(tc.given).Build()
+			s, err := NewSimpleScheduleFactory().RepeatMinutelyForever(tc.given)
 			if tc.expectError != nil {
 				assert.EqualError(t, err, tc.expectError.Error())
 			} else {
@@ -105,7 +105,7 @@ func TestSimpleSchedule_RepeatHourlyForever(t *testing.T) {
 	for _, tc := range cases {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
-			s, err := NewSimpleScheduleBuilder().RepeatHourlyForever(tc.given).Build()
+			s, err := NewSimpleScheduleFactory().RepeatHourlyForever(tc.given)
 			if tc.expectError != nil {
 				assert.EqualError(t, err, tc.expectError.Error())
 			} else {
@@ -156,7 +156,7 @@ func TestSimpleSchedule_RepeatSecondlyForTotalCount(t *testing.T) {
 	for _, tc := range cases {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
-			s, err := NewSimpleScheduleBuilder().RepeatSecondlyForTotalCount(tc.givenInterval, tc.givenCount).Build()
+			s, err := NewSimpleScheduleFactory().RepeatSecondlyForTotalCount(tc.givenInterval, tc.givenCount)
 			if tc.expectError != nil {
 				assert.EqualError(t, err, tc.expectError.Error())
 			} else {
@@ -207,7 +207,7 @@ func TestSimpleSchedule_RepeatMinutelyForTotalCount(t *testing.T) {
 	for _, tc := range cases {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
-			s, err := NewSimpleScheduleBuilder().RepeatMinutelyForTotalCount(tc.givenInterval, tc.givenCount).Build()
+			s, err := NewSimpleScheduleFactory().RepeatMinutelyForTotalCount(tc.givenInterval, tc.givenCount)
 			if tc.expectError != nil {
 				assert.EqualError(t, err, tc.expectError.Error())
 			} else {
@@ -258,7 +258,7 @@ func TestSimpleSchedule_RepeatHourlyForTotalCount(t *testing.T) {
 	for _, tc := range cases {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
-			s, err := NewSimpleScheduleBuilder().RepeatHourlyForTotalCount(tc.givenInterval, tc.givenCount).Build()
+			s, err := NewSimpleScheduleFactory().RepeatHourlyForTotalCount(tc.givenInterval, tc.givenCount)
 			if tc.expectError != nil {
 				assert.EqualError(t, err, tc.expectError.Error())
 			} else {
